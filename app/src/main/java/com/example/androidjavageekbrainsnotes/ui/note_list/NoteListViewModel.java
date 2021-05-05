@@ -1,4 +1,4 @@
-package com.example.androidjavageekbrainsnotes;
+package com.example.androidjavageekbrainsnotes.ui.note_list;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

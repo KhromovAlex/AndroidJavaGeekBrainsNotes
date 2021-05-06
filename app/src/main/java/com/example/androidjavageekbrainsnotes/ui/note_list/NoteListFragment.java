@@ -1,4 +1,4 @@
-package com.example.androidjavageekbrainsnotes;
+package com.example.androidjavageekbrainsnotes.ui.note_list;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.androidjavageekbrainsnotes.R;
 import com.example.androidjavageekbrainsnotes.domain.Note;
 
 import java.text.DateFormat;

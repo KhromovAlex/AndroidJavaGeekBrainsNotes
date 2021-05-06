@@ -1,4 +1,4 @@
-package com.example.androidjavageekbrainsnotes;
+package com.example.androidjavageekbrainsnotes.ui.note_details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.androidjavageekbrainsnotes.R;
 import com.example.androidjavageekbrainsnotes.domain.Note;
+import com.example.androidjavageekbrainsnotes.ui.note_list.NoteListViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

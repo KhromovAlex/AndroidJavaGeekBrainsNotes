@@ -16,4 +16,9 @@
     <string name="settings">Settings</string>
     <string name="nav_header_subtitle">Application for my notes</string>
     <string name="nav_header_desc">nav_header_desc</string>
+    <string name="add_note">Add note</string>
+    <string name="action_open">Open</string>
+    <string name="action_update">Update</string>
+    <string name="action_delete">Delete</string>
+    <string name="update_note">Update note</string>
 </resources>

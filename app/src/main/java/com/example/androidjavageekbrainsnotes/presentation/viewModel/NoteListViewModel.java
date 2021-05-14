@@ -30,4 +30,19 @@ public class NoteListViewModel extends ViewModel {
         List<Note> notes = notesRepository.getNotes();
         notesLiveData.postValue(notes);
     }
+
+    public void addNote(Note note) {
+        notesRepository.addNote(note);
+        notesLiveData.postValue(notesRepository.getNotes());
+    }
+
+    public void updateNote(Note note) {
+        notesRepository.updateNote(note);
+        notesLiveData.postValue(notesRepository.getNotes());
+    }
+
+    public void deleteNote(int index) {
+        notesRepository.deleteNote(index);
+        notesLiveData.postValue(notesRepository.getNotes());
+    }
 }

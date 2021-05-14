@@ -3,22 +3,35 @@ package com.example.androidjavageekbrainsnotes.domain.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class Note implements Parcelable {
-    private int titleRes;
-    private int textRes;
+    private final String id;
+    private String title;
+    private String text;
     private Date date;
 
-    public Note(int titleRes, int textRes, Date date) {
-        this.titleRes = titleRes;
-        this.textRes = textRes;
+    public Note(String id, String title, String text, Date date) {
+        this.id = id;
+        this.title = title;
+        this.text = text;
         this.date = date;
     }
 
     protected Note(Parcel in) {
-        titleRes = in.readInt();
-        textRes = in.readInt();
+        DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
+        id = in.readString();
+        title = in.readString();
+        text = in.readString();
+        try {
+            date = sdf.parse(in.readString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -33,28 +46,32 @@ public class Note implements Parcelable {
         }
     };
 
-    public int getTitleRes() {
-        return titleRes;
+    public String getTitle() {
+        return title;
     }
 
-    public int getTextRes() {
-        return textRes;
+    public String getText() {
+        return text;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public void setTitleRes(int titleRes) {
-        this.titleRes = titleRes;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setTextRes(int textRes) {
-        this.textRes = textRes;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getId() {
+        return id;
     }
 
     @Override
@@ -64,7 +81,10 @@ public class Note implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(titleRes);
-        dest.writeInt(textRes);
+        DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(text);
+        dest.writeString(sdf.format(date));
     }
 }

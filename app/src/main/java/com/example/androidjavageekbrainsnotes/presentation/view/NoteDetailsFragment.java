@@ -47,9 +47,9 @@ public class NoteDetailsFragment extends Fragment {
     }
 
     private void updateUi(Note selectedNote) {
-        title.setText(selectedNote.getTitleRes());
+        title.setText(selectedNote.getTitle());
 
-        text.setText(selectedNote.getTextRes());
+        text.setText(selectedNote.getText());
 
         DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
         date.setText(sdf.format(selectedNote.getDate()));

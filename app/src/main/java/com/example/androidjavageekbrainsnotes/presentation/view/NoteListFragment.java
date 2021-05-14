@@ -1,7 +1,9 @@
 package com.example.androidjavageekbrainsnotes.presentation.view;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,11 +20,14 @@ import com.example.androidjavageekbrainsnotes.R;
 import com.example.androidjavageekbrainsnotes.domain.model.Note;
 import com.example.androidjavageekbrainsnotes.presentation.adapter.NoteListAdapter;
 import com.example.androidjavageekbrainsnotes.presentation.viewModel.NoteListViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class NoteListFragment extends Fragment {
     private NoteListViewModel viewModel;
     private NavController navController;
     private RecyclerView notesList;
+    private FloatingActionButton actionButtonAddNote;
+    private NoteListAdapter noteListAdapter;
 
     public NoteListFragment() {
     }
@@ -40,24 +45,62 @@ public class NoteListFragment extends Fragment {
         navController = Navigation.findNavController(view);
 
         notesList = view.findViewById(R.id.notes_list);
-        NoteListAdapter noteListAdapter = new NoteListAdapter(this::openNote);
+        actionButtonAddNote = view.findViewById(R.id.button_add_note);
+        actionButtonAddNote.setOnClickListener(v -> {
+            navController.navigate(R.id.nav_create_note);
+        });
+        noteListAdapter = new NoteListAdapter(this, this::openNote);
 
         if (savedInstanceState == null) {
             viewModel.requestNotes();
         }
 
-        viewModel.getNotesLiveData().observe(getViewLifecycleOwner(), list -> {
-            noteListAdapter.addData(list);
-            noteListAdapter.notifyDataSetChanged();
-        });
+        viewModel.getNotesLiveData().observe(getViewLifecycleOwner(), noteListAdapter::setData);
 
         notesList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         notesList.setAdapter(noteListAdapter);
 
     }
 
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        requireActivity().getMenuInflater().inflate(R.menu.menu_list_context, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.action_open) {
+            openNote(noteListAdapter.getItemAt(noteListAdapter.getLongClickedPosition()));
+            return true;
+        }
+
+        if (item.getItemId() == R.id.action_update) {
+            updateNote(noteListAdapter.getItemAt(noteListAdapter.getLongClickedPosition()));
+            return true;
+        }
+
+        if (item.getItemId() == R.id.action_delete) {
+            deleteNote(noteListAdapter.getLongClickedPosition());
+            return true;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
     public void openNote(Note note) {
         viewModel.setSelectedNote(note);
         navController.navigate(R.id.nav_note_details);
+    }
+
+    public void updateNote(Note note) {
+        viewModel.setSelectedNote(note);
+        navController.navigate(R.id.nav_note_edit);
+    }
+
+    public void deleteNote(int index) {
+        viewModel.deleteNote(index);
     }
 }

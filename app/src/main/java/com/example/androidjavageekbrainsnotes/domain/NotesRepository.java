@@ -1,7 +1,6 @@
-package com.example.androidjavageekbrainsnotes.domain.repository;
+package com.example.androidjavageekbrainsnotes.domain;
 
 import com.example.androidjavageekbrainsnotes.R;
-import com.example.androidjavageekbrainsnotes.domain.model.Note;
 
 import java.util.ArrayList;
 import java.util.Date;

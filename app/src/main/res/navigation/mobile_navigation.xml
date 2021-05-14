@@ -7,18 +7,18 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.androidjavageekbrainsnotes.presentation.view.NoteListFragment"
+        android:name="com.example.androidjavageekbrainsnotes.ui.note_list.NoteListFragment"
         android:label="@string/notes_list"
         tools:layout="@layout/fragment_note_list" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.androidjavageekbrainsnotes.presentation.view.SettingsFragment"
+        android:name="com.example.androidjavageekbrainsnotes.ui.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/settings_fragment" />
 
     <fragment
         android:id="@+id/nav_note_details"
-        android:name="com.example.androidjavageekbrainsnotes.presentation.view.NoteDetailsFragment"
+        android:name="com.example.androidjavageekbrainsnotes.ui.note_details.NoteDetailsFragment"
         tools:layout="@layout/fragment_note_details" />
 </navigation>

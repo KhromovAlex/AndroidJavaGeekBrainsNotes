@@ -1,4 +1,4 @@
-package com.example.androidjavageekbrainsnotes.presentation.view;
+package com.example.androidjavageekbrainsnotes.ui.note_details;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidjavageekbrainsnotes.R;
-import com.example.androidjavageekbrainsnotes.domain.model.Note;
-import com.example.androidjavageekbrainsnotes.presentation.viewModel.NoteListViewModel;
+import com.example.androidjavageekbrainsnotes.domain.Note;
+import com.example.androidjavageekbrainsnotes.ui.note_list.NoteListViewModel;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

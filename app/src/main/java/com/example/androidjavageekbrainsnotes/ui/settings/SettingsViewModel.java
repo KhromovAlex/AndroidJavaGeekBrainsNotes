@@ -1,4 +1,4 @@
-package com.example.androidjavageekbrainsnotes.presentation.viewModel;
+package com.example.androidjavageekbrainsnotes.ui.settings;
 
 import androidx.lifecycle.ViewModel;
 

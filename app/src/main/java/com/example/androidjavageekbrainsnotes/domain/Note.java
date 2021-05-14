@@ -1,4 +1,4 @@
-package com.example.androidjavageekbrainsnotes.domain.model;
+package com.example.androidjavageekbrainsnotes.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;

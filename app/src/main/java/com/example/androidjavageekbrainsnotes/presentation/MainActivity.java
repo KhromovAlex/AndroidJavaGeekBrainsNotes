@@ -1,4 +1,4 @@
-package com.example.androidjavageekbrainsnotes;
+package com.example.androidjavageekbrainsnotes.presentation;
 
 import android.os.Bundle;
 
@@ -10,11 +10,10 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.androidjavageekbrainsnotes.domain.Note;
-import com.example.androidjavageekbrainsnotes.ui.note_list.NoteListFragment;
+import com.example.androidjavageekbrainsnotes.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NoteListFragment.OnNoteClicked {
+public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
 
@@ -37,11 +36,6 @@ public class MainActivity extends AppCompatActivity implements NoteListFragment.
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-    }
-
-    @Override
-    public void onNoteClicked(Note note) {
-        navController.navigate(R.id.nav_note_details);
     }
 
     @Override

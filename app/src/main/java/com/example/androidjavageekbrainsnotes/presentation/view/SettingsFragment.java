@@ -1,4 +1,4 @@
-package com.example.androidjavageekbrainsnotes.ui.settings;
+package com.example.androidjavageekbrainsnotes.presentation.view;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.androidjavageekbrainsnotes.R;
+import com.example.androidjavageekbrainsnotes.presentation.viewModel.SettingsViewModel;
 
 public class SettingsFragment extends Fragment {
 

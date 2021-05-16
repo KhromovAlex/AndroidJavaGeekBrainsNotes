@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.androidjavageekbrainsnotes.domain.model.Note;
-import com.example.androidjavageekbrainsnotes.domain.repository.NotesRepository;
+import com.example.androidjavageekbrainsnotes.domain.repository.Callback;
+import com.example.androidjavageekbrainsnotes.domain.repository.NotesRepositoryImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NoteListViewModel extends ViewModel {
-    private final NotesRepository notesRepository = new NotesRepository();
+    private final NotesRepositoryImpl notesRepositoryImpl = new NotesRepositoryImpl();
     private final MutableLiveData<Note> selectedNote = new MutableLiveData<>();
     private final MutableLiveData<List<Note>> notesLiveData = new MutableLiveData<>();
 
@@ -23,26 +25,65 @@ public class NoteListViewModel extends ViewModel {
     }
 
     public void setSelectedNote(Note note) {
-        selectedNote.postValue(note);
+        selectedNote.setValue(note);
     }
 
     public void requestNotes() {
-        List<Note> notes = notesRepository.getNotes();
-        notesLiveData.postValue(notes);
+        notesRepositoryImpl.getNotes(new Callback<ArrayList<Note>>() {
+
+
+            @Override
+            public void onSuccess(ArrayList<Note> value) {
+                notesLiveData.setValue(value);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
     }
 
-    public void addNote(Note note) {
-        notesRepository.addNote(note);
-        notesLiveData.postValue(notesRepository.getNotes());
+    public void addNote(String title, String text) {
+        notesRepositoryImpl.addNote(title, text, new Callback<Note>() {
+            @Override
+            public void onSuccess(Note value) {
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
     }
 
     public void updateNote(Note note) {
-        notesRepository.updateNote(note);
-        notesLiveData.postValue(notesRepository.getNotes());
+        notesRepositoryImpl.updateNote(note, new Callback<Object>() {
+
+            @Override
+            public void onSuccess(Object value) {
+
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
     }
 
-    public void deleteNote(int index) {
-        notesRepository.deleteNote(index);
-        notesLiveData.postValue(notesRepository.getNotes());
+    public void deleteNote(Note note) {
+        notesRepositoryImpl.deleteNote(note, new Callback<Object>() {
+
+            @Override
+            public void onSuccess(Object value) {
+                requestNotes();
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
     }
 }

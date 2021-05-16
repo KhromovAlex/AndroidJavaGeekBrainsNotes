@@ -116,7 +116,7 @@ public class NoteEditFragment extends Fragment {
             }
 
             viewModel.updateNote(currentNote);
-            navController.navigateUp();
+            navController.popBackStack();
         });
     }
 

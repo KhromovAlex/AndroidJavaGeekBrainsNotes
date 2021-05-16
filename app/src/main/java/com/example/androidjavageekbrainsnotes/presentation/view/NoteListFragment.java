@@ -25,8 +25,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class NoteListFragment extends Fragment {
     private NoteListViewModel viewModel;
     private NavController navController;
-    private RecyclerView notesList;
-    private FloatingActionButton actionButtonAddNote;
     private NoteListAdapter noteListAdapter;
 
     public NoteListFragment() {
@@ -44,8 +42,8 @@ public class NoteListFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(NoteListViewModel.class);
         navController = Navigation.findNavController(view);
 
-        notesList = view.findViewById(R.id.notes_list);
-        actionButtonAddNote = view.findViewById(R.id.button_add_note);
+        RecyclerView notesList = view.findViewById(R.id.notes_list);
+        FloatingActionButton actionButtonAddNote = view.findViewById(R.id.button_add_note);
         actionButtonAddNote.setOnClickListener(v -> {
             navController.navigate(R.id.nav_create_note);
         });

@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class NoteDetailsFragment extends Fragment {
-    private NoteListViewModel viewModel;
     private TextView title;
     private TextView text;
     private TextView date;
@@ -38,7 +37,7 @@ public class NoteDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(NoteListViewModel.class);
+        NoteListViewModel viewModel = new ViewModelProvider(requireActivity()).get(NoteListViewModel.class);
         title = view.findViewById(R.id.title_note);
         text = view.findViewById(R.id.text_note);
         date = view.findViewById(R.id.date_note);

@@ -15,13 +15,9 @@ import android.view.ViewGroup;
 import com.example.androidjavageekbrainsnotes.R;
 import com.example.androidjavageekbrainsnotes.presentation.viewModel.SettingsViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SettingsFragment extends Fragment {
-
-    private SettingsViewModel mViewModel;
-
-    public static SettingsFragment newInstance() {
-        return new SettingsFragment();
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -30,10 +26,8 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
-        // TODO: Use the ViewModel
+    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        SettingsViewModel mViewModel = new ViewModelProvider(this).get(SettingsViewModel.class);
     }
-
 }

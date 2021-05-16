@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.Objects;
 
 public class NoteCreateFragment extends Fragment {
-    private MaterialButton buttonAddNote;
     private TextInputEditText titleNewNote;
     private TextInputEditText textNewNote;
     private NoteListViewModel viewModel;
@@ -53,7 +52,7 @@ public class NoteCreateFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(NoteListViewModel.class);
         navController = Navigation.findNavController(view);
-        buttonAddNote = view.findViewById(R.id.note_create__button_add);
+        MaterialButton buttonAddNote = view.findViewById(R.id.note_create__button_add);
         titleNewNote = view.findViewById(R.id.note_create__title);
         textNewNote = view.findViewById(R.id.note_create__text);
         buttonAddNote.setOnClickListener(v -> {

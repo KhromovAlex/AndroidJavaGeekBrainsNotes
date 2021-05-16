@@ -28,10 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 public class NoteEditFragment extends Fragment {
-    private MaterialButton buttonEditNote;
     private TextInputEditText titleNote;
     private MaterialTextView dateNote;
     private TextInputEditText textNote;
@@ -41,13 +39,6 @@ public class NoteEditFragment extends Fragment {
 
     public NoteEditFragment() {
         // Required empty public constructor
-    }
-
-    public static NoteEditFragment newInstance(String param1, String param2) {
-        NoteEditFragment fragment = new NoteEditFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -62,13 +53,17 @@ public class NoteEditFragment extends Fragment {
         DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
         viewModel = new ViewModelProvider(requireActivity()).get(NoteListViewModel.class);
         navController = Navigation.findNavController(view);
-        buttonEditNote = view.findViewById(R.id.note_edit__button_edit);
+        MaterialButton buttonEditNote = view.findViewById(R.id.note_edit__button_edit);
         titleNote = view.findViewById(R.id.note_edit__title);
         textNote = view.findViewById(R.id.note_edit__text);
         dateNote = view.findViewById(R.id.note_edit__date);
-        titleNote.setText(Objects.requireNonNull(viewModel.getSelectedNote().getValue()).getTitle());
-        textNote.setText(Objects.requireNonNull(viewModel.getSelectedNote().getValue()).getText());
-        dateNote.setText(sdf.format(Objects.requireNonNull(viewModel.getSelectedNote().getValue()).getDate()));
+
+        if (viewModel.getSelectedNote().getValue() != null) {
+            titleNote.setText(viewModel.getSelectedNote().getValue().getTitle());
+            textNote.setText(viewModel.getSelectedNote().getValue().getText());
+            dateNote.setText(sdf.format(viewModel.getSelectedNote().getValue().getDate()));
+        }
+
         mDateListener = (datePicker, year, month, day) -> {
             Date newDate = viewModel.getSelectedNote().getValue().getDate();
             Date tempDate = null;
@@ -105,9 +100,9 @@ public class NoteEditFragment extends Fragment {
             dialog.show();
         });
         buttonEditNote.setOnClickListener(v -> {
-            String title = Objects.requireNonNull(titleNote.getText()).toString().trim();
-            String text = Objects.requireNonNull(textNote.getText()).toString().trim();
-            String date = Objects.requireNonNull(dateNote.getText()).toString().trim();
+            String title = getElementText(titleNote);
+            String text = getElementText(textNote);
+            String date = getElementText(dateNote);
 
             if (title.equals("") || text.equals("")) return;
 
@@ -124,4 +119,13 @@ public class NoteEditFragment extends Fragment {
             navController.navigateUp();
         });
     }
+
+    private String getElementText(TextInputEditText textEdit) {
+        return (textEdit.getText() != null) ? textEdit.getText().toString().trim() : "";
+    }
+
+    private String getElementText(MaterialTextView textEdit) {
+        return (textEdit.getText() != null) ? textEdit.getText().toString().trim() : "";
+    }
+
 }

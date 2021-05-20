@@ -48,6 +48,19 @@ public class NoteListViewModel extends ViewModel {
         notesRepositoryImpl.addNote(title, text, new Callback<Note>() {
             @Override
             public void onSuccess(Note value) {
+                if (notesLiveData.getValue() != null) {
+
+                    ArrayList<Note> notes = new ArrayList<>(notesLiveData.getValue());
+
+                    notes.add(value);
+
+                    notesLiveData.setValue(notes);
+                } else {
+                    ArrayList<Note> notes = new ArrayList<>();
+                    notes.add(value);
+
+                    notesLiveData.setValue(notes);
+                }
             }
 
             @Override
@@ -58,11 +71,22 @@ public class NoteListViewModel extends ViewModel {
     }
 
     public void updateNote(Note note) {
-        notesRepositoryImpl.updateNote(note, new Callback<Object>() {
+        notesRepositoryImpl.updateNote(note, new Callback<Note>() {
 
             @Override
-            public void onSuccess(Object value) {
+            public void onSuccess(Note value) {
+                if (notesLiveData.getValue() != null) {
 
+                    ArrayList<Note> notes = new ArrayList<>(notesLiveData.getValue());
+
+                    int index = notes.indexOf(value);
+
+                    if (index != -1) {
+                        notes.set(index, value);
+                    }
+
+                    notesLiveData.setValue(notes);
+                }
             }
 
             @Override

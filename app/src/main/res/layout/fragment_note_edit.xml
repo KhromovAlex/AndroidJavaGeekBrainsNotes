@@ -44,13 +44,32 @@
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/note_edit__button_edit"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin16"
-            android:text="@string/update_note" />
+            android:gravity="center"
+            android:layout_margin="@dimen/margin16"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/note_edit__button_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin16"
+                android:layout_marginEnd="@dimen/margin16"
+                android:text="@string/close" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/note_edit__button_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin16"
+                android:text="@string/update_note" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -28,13 +28,4 @@
         android:name="com.example.androidjavageekbrainsnotes.presentation.view.NoteDetailsFragment"
         tools:layout="@layout/fragment_note_details" />
 
-    <fragment
-        android:id="@+id/nav_create_note"
-        android:name="com.example.androidjavageekbrainsnotes.presentation.view.NoteCreateFragment"
-        tools:layout="@layout/fragment_note_create" />
-
-    <fragment
-        android:id="@+id/nav_note_edit"
-        android:name="com.example.androidjavageekbrainsnotes.presentation.view.NoteEditFragment"
-        tools:layout="@layout/fragment_note_edit" />
 </navigation>

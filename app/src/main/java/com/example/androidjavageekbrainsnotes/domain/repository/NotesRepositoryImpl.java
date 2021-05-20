@@ -66,7 +66,7 @@ public class NotesRepositoryImpl implements NotesRepository {
     }
 
     @Override
-    public void updateNote(Note note, Callback<Object> callback) {
+    public void updateNote(Note note, Callback<Note> callback) {
         fireStore.collection(NOTES)
                 .document(note.getId())
                 .update(
@@ -76,7 +76,7 @@ public class NotesRepositoryImpl implements NotesRepository {
                 )
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        callback.onSuccess(new Object());
+                        callback.onSuccess(note);
                     } else {
                         callback.onError(task.getException());
                     }

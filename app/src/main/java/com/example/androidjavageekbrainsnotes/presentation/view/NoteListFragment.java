@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -44,9 +45,7 @@ public class NoteListFragment extends Fragment {
 
         RecyclerView notesList = view.findViewById(R.id.notes_list);
         FloatingActionButton actionButtonAddNote = view.findViewById(R.id.button_add_note);
-        actionButtonAddNote.setOnClickListener(v -> {
-            navController.navigate(R.id.nav_create_note);
-        });
+        actionButtonAddNote.setOnClickListener(v -> new NoteCreateFragment().show(getParentFragmentManager(), "NoteCreate"));
         noteListAdapter = new NoteListAdapter(this, this::openNote);
 
         viewModel.requestNotes();
@@ -79,11 +78,22 @@ public class NoteListFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_delete) {
-            deleteNote(noteListAdapter.getItemAt(noteListAdapter.getLongClickedPosition()));
+            showRemoveAlert();
             return true;
         }
 
         return super.onContextItemSelected(item);
+    }
+
+    private void showRemoveAlert() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+
+        builder
+                .setMessage(R.string.alert_remove_message)
+                .setIcon(R.drawable.ic_baseline_delete_forever_24)
+                .setPositiveButton(R.string.yes, (dialog, which) -> deleteNote(noteListAdapter.getItemAt(noteListAdapter.getLongClickedPosition())))
+                .setNegativeButton(R.string.no, null)
+                .show();
     }
 
     public void openNote(Note note) {
@@ -93,7 +103,7 @@ public class NoteListFragment extends Fragment {
 
     public void updateNote(Note note) {
         viewModel.setSelectedNote(note);
-        navController.navigate(R.id.nav_note_edit);
+        new NoteEditFragment().show(getParentFragmentManager(), "NoteEdit");
     }
 
     public void deleteNote(Note note) {

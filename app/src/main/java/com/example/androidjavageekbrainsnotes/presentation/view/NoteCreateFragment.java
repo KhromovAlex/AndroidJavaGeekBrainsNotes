@@ -7,10 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.example.androidjavageekbrainsnotes.R;
 import com.example.androidjavageekbrainsnotes.presentation.viewModel.NoteListViewModel;
@@ -21,14 +19,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class NoteCreateFragment extends Fragment {
+public class NoteCreateFragment extends DialogFragment {
     private TextInputEditText titleNewNote;
     private TextInputEditText textNewNote;
     private NoteListViewModel viewModel;
-    private NavController navController;
 
     public NoteCreateFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public int getTheme() {
+        return R.style.AlertDialogStyle;
     }
 
     @Override
@@ -41,8 +43,8 @@ public class NoteCreateFragment extends Fragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(NoteListViewModel.class);
-        navController = Navigation.findNavController(view);
         MaterialButton buttonAddNote = view.findViewById(R.id.note_create__button_add);
+        MaterialButton buttonClose = view.findViewById(R.id.note_create__button_close);
         titleNewNote = view.findViewById(R.id.note_create__title);
         textNewNote = view.findViewById(R.id.note_create__text);
         buttonAddNote.setOnClickListener(v -> {
@@ -52,7 +54,9 @@ public class NoteCreateFragment extends Fragment {
             if (title.equals("") || text.equals("")) return;
 
             viewModel.addNote(title, text);
-            navController.popBackStack();
+            dismiss();
         });
+
+        buttonClose.setOnClickListener(v -> dismiss());
     }
 }

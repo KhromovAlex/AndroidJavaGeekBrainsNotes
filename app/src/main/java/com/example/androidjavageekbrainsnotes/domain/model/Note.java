@@ -8,12 +8,29 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Note implements Parcelable {
     private final String id;
     private String title;
     private String text;
     private Date date;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note = (Note) o;
+        return id.equals(note.id) &&
+                title.equals(note.title) &&
+                text.equals(note.text) &&
+                date.equals(note.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, text, date);
+    }
 
     public Note(String id, String title, String text, Date date) {
         this.id = id;

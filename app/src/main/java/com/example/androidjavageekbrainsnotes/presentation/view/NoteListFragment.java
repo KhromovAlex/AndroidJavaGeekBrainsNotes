@@ -49,9 +49,7 @@ public class NoteListFragment extends Fragment {
         });
         noteListAdapter = new NoteListAdapter(this, this::openNote);
 
-        if (savedInstanceState == null) {
-            viewModel.requestNotes();
-        }
+        viewModel.requestNotes();
 
         viewModel.getNotesLiveData().observe(getViewLifecycleOwner(), noteListAdapter::setData);
 
@@ -81,7 +79,7 @@ public class NoteListFragment extends Fragment {
         }
 
         if (item.getItemId() == R.id.action_delete) {
-            deleteNote(noteListAdapter.getLongClickedPosition());
+            deleteNote(noteListAdapter.getItemAt(noteListAdapter.getLongClickedPosition()));
             return true;
         }
 
@@ -98,7 +96,7 @@ public class NoteListFragment extends Fragment {
         navController.navigate(R.id.nav_note_edit);
     }
 
-    public void deleteNote(int index) {
-        viewModel.deleteNote(index);
+    public void deleteNote(Note note) {
+        viewModel.deleteNote(note);
     }
 }

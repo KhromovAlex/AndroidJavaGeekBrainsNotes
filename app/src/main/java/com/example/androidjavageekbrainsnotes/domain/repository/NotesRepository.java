@@ -4,26 +4,12 @@ import com.example.androidjavageekbrainsnotes.domain.model.Note;
 
 import java.util.ArrayList;
 
-public class NotesRepository {
-    private final ArrayList<Note> data = new ArrayList<>();
+public interface NotesRepository {
+    void getNotes(Callback<ArrayList<Note>> callback);
 
-    public ArrayList<Note> getNotes() {
-        return data;
-    }
+    void addNote(String title, String text, Callback<Note> callback);
 
-    public void addNote(Note note) {
-        data.add(note);
-    }
+    void updateNote(Note note, Callback<Object> callback);
 
-    public void updateNote(Note note) {
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getId().equals(note.getId())) {
-                data.set(i, note);
-            }
-        }
-    }
-
-    public void deleteNote(int index) {
-        data.remove(index);
-    }
+    void deleteNote(Note item, Callback<Object> callback);
 }

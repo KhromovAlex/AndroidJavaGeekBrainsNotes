@@ -1,6 +1,9 @@
 package com.example.androidjavageekbrainsnotes.presentation.view;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,19 +12,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.androidjavageekbrainsnotes.R;
-import com.example.androidjavageekbrainsnotes.domain.model.Note;
 import com.example.androidjavageekbrainsnotes.presentation.viewModel.NoteListViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class NoteCreateFragment extends Fragment {
@@ -32,13 +29,6 @@ public class NoteCreateFragment extends Fragment {
 
     public NoteCreateFragment() {
         // Required empty public constructor
-    }
-
-    public static NoteCreateFragment newInstance(String param1, String param2) {
-        NoteCreateFragment fragment = new NoteCreateFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -61,10 +51,8 @@ public class NoteCreateFragment extends Fragment {
 
             if (title.equals("") || text.equals("")) return;
 
-            Note newNote = new Note(title + Math.random(),title, text, new Date());
-
-            viewModel.addNote(newNote);
-            navController.navigateUp();
+            viewModel.addNote(title, text);
+            navController.popBackStack();
         });
     }
 }

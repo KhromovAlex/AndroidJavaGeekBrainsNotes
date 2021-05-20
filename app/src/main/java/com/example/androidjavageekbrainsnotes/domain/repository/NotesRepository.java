@@ -9,7 +9,7 @@ public interface NotesRepository {
 
     void addNote(String title, String text, Callback<Note> callback);
 
-    void updateNote(Note note, Callback<Object> callback);
+    void updateNote(Note note, Callback<Note> callback);
 
     void deleteNote(Note item, Callback<Object> callback);
 }

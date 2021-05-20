@@ -8,10 +8,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
 import com.example.androidjavageekbrainsnotes.R;
 import com.example.androidjavageekbrainsnotes.domain.model.Note;
@@ -29,12 +27,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class NoteEditFragment extends Fragment {
+public class NoteEditFragment extends DialogFragment {
     private TextInputEditText titleNote;
     private MaterialTextView dateNote;
     private TextInputEditText textNote;
     private NoteListViewModel viewModel;
-    private NavController navController;
     DatePickerDialog.OnDateSetListener mDateListener;
 
     public NoteEditFragment() {
@@ -48,12 +45,17 @@ public class NoteEditFragment extends Fragment {
     }
 
     @Override
+    public int getTheme() {
+        return R.style.AlertDialogStyle;
+    }
+
+    @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         DateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm", Locale.ENGLISH);
         viewModel = new ViewModelProvider(requireActivity()).get(NoteListViewModel.class);
-        navController = Navigation.findNavController(view);
         MaterialButton buttonEditNote = view.findViewById(R.id.note_edit__button_edit);
+        MaterialButton buttonClose = view.findViewById(R.id.note_edit__button_close);
         titleNote = view.findViewById(R.id.note_edit__title);
         textNote = view.findViewById(R.id.note_edit__text);
         dateNote = view.findViewById(R.id.note_edit__date);
@@ -116,8 +118,9 @@ public class NoteEditFragment extends Fragment {
             }
 
             viewModel.updateNote(currentNote);
-            navController.popBackStack();
+            dismiss();
         });
+        buttonClose.setOnClickListener(v -> dismiss());
     }
 
     private String getElementText(TextInputEditText textEdit) {

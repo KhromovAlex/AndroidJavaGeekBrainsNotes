@@ -22,4 +22,8 @@
     <string name="action_delete">Delete</string>
     <string name="update_note">Update note</string>
     <string name="auth">auth</string>
+    <string name="alert_remove_message">Delete note?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="close">Close</string>
 </resources>
